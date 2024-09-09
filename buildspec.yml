@@ -3,21 +3,21 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Installing source NPM dependencies...
+      - echo Installing dependencies...
       - npm install
   build:
     commands:
-      - echo Building the Docker image...
-      - docker build -t my-node-app .
+      - echo Build started on `date`
+      - npm run build
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Writing imagedefinitions.json file...
-      # Replace 'your-image-repository-url' with your actual ECR repository URL
-      - printf '[{"name":"New-container","597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-node-app:latest":"%s"}]' "597088043946.dkr.ecr.ap-south-1.amazonaws.com/597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-node-app:latest" > imagedefinitions.json
+      # Replace 'container-name' with your container name and 'your-image-repo' with your actual ECR repository
+      - echo '[{"name":"New-container","597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-node-app:latest":"597088043946.dkr.ecr.ap-south-1.amazonaws.com/597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-node-app:latest"}]' > imagedefinitions.json
 
 artifacts:
   files:
     - "**/*"
-    - imagedefinitions.json # Include this file in the artifacts
+    - imagedefinitions.json
   base-directory: .
