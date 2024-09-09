@@ -12,13 +12,12 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker image...
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 597088043946.dkr.ecr.ap-south-1.amazonaws.com
-      - docker tag my-node-app:latest 597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-node-app:latest
-      - docker push 597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-node-app:latest
+      - echo Writing imagedefinitions.json file...
+      # Replace 'your-image-repository-url' with your actual ECR repository URL
+      - printf '[{"name":"container-name","imageUri":"%s"}]' "597088043946.dkr.ecr.ap-south-1.amazonaws.com/your-image-repo:latest" > imagedefinitions.json
+
 artifacts:
   files:
     - "**/*"
+    - imagedefinitions.json # Include this file in the artifacts
   base-directory: .
-  discard-paths: yes
-  name: BuildArtif
