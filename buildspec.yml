@@ -13,6 +13,6 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - $(aws ecr get-login --no-include-email)
-      - docker tag my-node-app:latest <account-id>.dkr.ecr.<region>.amazonaws.com/my-node-app:latest
-      - docker push <account-id>.dkr.ecr.<region>.amazonaws.com/my-node-app:latest
+      - $(aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 597088043946.dkr.ecr.ap-south-1.amazonaws.com)
+      - docker tag my-node-app:latest 597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-node-app:latest
+      - docker push 597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-node-app:latest
