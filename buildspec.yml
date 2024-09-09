@@ -16,3 +16,8 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-react-app-1:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"demo-container","imageUri":"%s"}]' 597088043946.dkr.ecr.ap-south-1.amazonaws.com/my-react-app-1:latest > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
